@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.StringWriter;
+import java.security.Key;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -73,10 +74,17 @@ public class HashSet<K> {
     public void add(K key) {
         int code = Math.abs(key.hashCode());
         int bucketIndex = code % this.buckets.length;
-        if (this.buckets[bucketIndex] == null)
+        if (this.buckets[bucketIndex] == null){
             this.buckets[bucketIndex] = new LinkedList<>();
-        // TASK: Dedupe step...YOU HAVE THIS, I DON'T...
+        }
+        for (K existingk : buckets[bucketIndex]){
+            if (existingk.equals(key)){
+                return;
+            }
+        }
+
         this.buckets[bucketIndex].add(key);
+
         count++;
         if (needsResized())
             resize();

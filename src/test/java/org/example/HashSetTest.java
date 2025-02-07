@@ -43,6 +43,7 @@ public class HashSetTest {
         HashSet<Point> points = new HashSet<Point>(10);
         points.add(new Point(1, 1));
         points.add(new Point(1, 1));
+        points.add(new Point(1, 1));
         assertEquals(1, points.size());
     }
 
