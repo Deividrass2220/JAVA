@@ -165,12 +165,12 @@ public class HashSet<K> {
 
         Iterator<K> iteratorA = this.iterator();
         while (iteratorA.hasNext()){
-            K item = iteratorA.next();
+            K item1 = iteratorA.next();
             Iterator<K> iteratorB = b.iterator();
             while (iteratorB.hasNext()){
                 K item2 = iteratorB.next();
-                if (item.equals(item2)){
-                    I.add(item);
+                if (item1.equals(item2)){
+                    I.add(item1);
                 }
             }
         }
@@ -228,7 +228,7 @@ public class HashSet<K> {
         HashSet<Integer> I = a.intersect(b);
         HashSet<Integer> d = a.difference(b);
 
-        Iterator<Integer> i = d.iterator();
+        Iterator<Integer> i = I.iterator();
         while (i.hasNext())
             System.out.print(i.next() + " ");
     }
