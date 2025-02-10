@@ -74,11 +74,11 @@ public class HashSet<K> {
     public void add(K key) {
         int code = Math.abs(key.hashCode());
         int bucketIndex = code % this.buckets.length;
-        if (this.buckets[bucketIndex] == null){
+        if (this.buckets[bucketIndex] == null) {
             this.buckets[bucketIndex] = new LinkedList<>();
         }
-        for (K existingk : buckets[bucketIndex]){
-            if (existingk.equals(key)){
+        for (K existingk : buckets[bucketIndex]) {
+            if (existingk.equals(key)) {
                 return;
             }
         }
@@ -142,20 +142,60 @@ public class HashSet<K> {
 
     // this U b
     public HashSet<K> union(HashSet<K> b) {
-        // TODO:
-        return null;
+        HashSet<K> U = new HashSet<>(3);
+
+        Iterator<K> iteratorA = this.iterator();
+        while (iteratorA.hasNext()) {
+            K items = iteratorA.next();
+            U.add(items);
+        }
+
+        Iterator<K> iteratorB = b.iterator();
+        while (iteratorB.hasNext()) {
+            K item = iteratorB.next();
+            U.add(item);
+        }
+        return U;
     }
+
 
     // this I b
     public HashSet<K> intersect(HashSet<K> b) {
-        // TODO:
-        return null;
+        HashSet<K> I = new HashSet<>(1);
+
+        Iterator<K> iteratorA = this.iterator();
+        while (iteratorA.hasNext()){
+            K item = iteratorA.next();
+            Iterator<K> iteratorB = b.iterator();
+            while (iteratorB.hasNext()){
+                K item2 = iteratorB.next();
+                if (item.equals(item2)){
+                    I.add(item);
+                }
+            }
+        }
+        return I;
     }
 
     // this - b
     public HashSet<K> difference(HashSet<K> b) {
-        // TODO:
-        return null;
+
+        HashSet<K> D = new HashSet<>(3);
+
+        Iterator<K> iteratorA = this.iterator();
+        Iterator<K> iteratorb = b.iterator();
+
+        while (iteratorA.hasNext()){
+            K item1 = iteratorA.next();
+            K item2 = iteratorb.next();
+            if (!b.contains(item1)){
+                D.add(item1);}
+            if (!this.contains(item2)){
+                D.add(item2);
+            }
+
+        }
+        return D;
     }
 
     public int size() {
@@ -177,14 +217,18 @@ public class HashSet<K> {
     }
 
     public static void main(String[] args) {
-        HashSet<String> data = new HashSet<>(2);
-        data.add("A");
-        data.add("B");
-        data.add("C");
-        data.add("D");
-        System.out.println(data);
+        HashSet<Integer> a = new HashSet<>(2);
+        HashSet<Integer> b = new HashSet<>(2);
+        a.add(1);
+        a.add(3);
+        b.add(3);
+        b.add(7);
+        a.union(b);
+        HashSet<Integer> u = a.union(b);
+        HashSet<Integer> I = a.intersect(b);
+        HashSet<Integer> d = a.difference(b);
 
-        Iterator<String> i = data.iterator();
+        Iterator<Integer> i = d.iterator();
         while (i.hasNext())
             System.out.print(i.next() + " ");
     }

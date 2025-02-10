@@ -1,6 +1,7 @@
 package org.example;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -41,7 +42,6 @@ public class HashSetTest {
     @Test
     public void keeps_just_a_single_instance_of_an_added_item() {
         HashSet<Point> points = new HashSet<Point>(10);
-        points.add(new Point(1, 1));
         points.add(new Point(1, 1));
         points.add(new Point(1, 1));
         assertEquals(1, points.size());
@@ -88,6 +88,38 @@ public class HashSetTest {
     }
 
     @Test
+    public void testIntersection() {
+        HashSet<Integer> a = new HashSet<>(5);
+        HashSet<Integer> b = new HashSet<>(5);
+
+        a.add(1);
+        a.add(3);
+
+        b.add(3);
+        b.add(7);
+
+        HashSet<Integer> c = a.intersect(b);
+        assertTrue(c.contains(3));
+    }
+
+
+    @Test
+    public void testDifference() {
+        HashSet<Integer> a = new HashSet<>(5);
+        HashSet<Integer> b = new HashSet<>(5);
+
+        a.add(1);
+        a.add(3);
+
+        b.add(3);
+        b.add(7);
+
+        HashSet<Integer> c = a.difference(b);
+        assertTrue(c.contains(1));
+        assertTrue(c.contains(7));
+    }
+
+    @Test
     public void union_leaves_original_sets_unchanged() {
         HashSet<Integer> a = new HashSet<>(5);
         HashSet<Integer> b = new HashSet<>(5);
@@ -110,6 +142,7 @@ public class HashSetTest {
         assertTrue(b.contains(3));
         assertTrue(b.contains(7));
     }
+
 
     /********************************************************************************
      * HELPER METHODS BELOW THIS LINE
